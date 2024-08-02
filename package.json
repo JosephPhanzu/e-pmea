@@ -4,7 +4,7 @@
   "description": "My first app to test my skill for node.js",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "Joe_Dev",
   "license": "ISC",
