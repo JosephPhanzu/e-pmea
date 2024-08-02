@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 // Configurer les sessions
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: process.env.NODE_ENV } // true` pour HTTPS
