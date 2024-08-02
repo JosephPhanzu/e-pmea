@@ -33,10 +33,10 @@ app.use((req, res, next) => {
 
 // Configurer les sessions
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'par defaut',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production' } // true` pour HTTPS
+    cookie: { secure: process.env.NODE_ENV } // true` pour HTTPS
 }));
 
 // Middleware global pour rendre les variables de session accessibles dans les vues
