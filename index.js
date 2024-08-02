@@ -14,7 +14,7 @@ const optionBdd = mySql.createConnection({
     port : process.env.DB_PORT || 3306,
     database : process.env.DB_NAME || 'e-pmea',
     user : process.env.DB_USER || 'root',
-    password : process.env.DB_PASS || ''
+    password : process.env.DB_PASSWORD || ''
 });
 
 //  Établir la connexions
@@ -42,8 +42,14 @@ app.use(session({
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true } // Mettre `true` en production avec HTTPS
+  cookie: { secure: true }
 }));
+
+// Middleware global pour rendre les variables de session accessibles dans les vues
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
