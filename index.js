@@ -32,7 +32,6 @@ app.use((req, res, next) => {
     next();
 });
 
-  // Configuration de la session avec Redis
 //Configuration du store de sessions MySQL
 const sessionStore = new MySQLStore({}, connection);
 
@@ -43,7 +42,7 @@ app.use(session({
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // Mettre `true` en production avec HTTPS
+  cookie: { secure: true } // Mettre `true` en production avec HTTPS
 }));
 
 app.use(bodyParser.json());
