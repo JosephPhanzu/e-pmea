@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Inclure le CDN Bootstrap CSS -->
+    <link href="Css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- css personnalisé -->
+    <link rel="stylesheet" href="Css/style.css">
+    <!-- Le favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+</head>
+<body id="bodyLogin">
+    <div class="container header text-white">
+        <div class="row d-flex justify-content-center">
+            <div class="container d-flex justify-content-center col-12">
+                <img src="images/EPMEA.png" class="img-fluid" id="logo2" alt="logo">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="chapeau-text d-flex justify-content-center col-12 col-md-7 text-center fw-bolder">
+                    <span class="text-danger fs-6 fs-md-3">DIVISION URBAINE DE <span class="fs-6 fs-md-2 text-white text-center">L'ENTREPREUNARIAT PETITES, MOYENNES ENTREPRISES ET ARTISANATS</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-center py-3">
+        <form id="connexion-personnel" class="rounded col-12 col-md-6 form-inline py-3 shadow-lg bg-light border border-primary">
+            <div class="form-title text-start ps-2">
+                <p class="text-primary"><i class="fa-solid fa-lock text-primary fs-4 me-2"></i>Identifiez-vous</p><hr>
+            </div>
+            <div class="container text-secondary text-wrap">
+                <div class="form-floating">
+                    <input type="email" autocomplete="off" name="email" class="form-control form-control-lg shadow-none rounded-0" id="email" required value="josephphanzu@epmea.cd">
+                    <label for="email" class="form-label">E-mail</label>
+                </div><br>
+                <div class="form-floating">
+                    <input type="text" autocomplete="off" name="matricule" class="form-control form-control-lg shadow-none rounded-0" id="matricule" required value="2024AT1N01">
+                    <label for="matricule" class="form-label">Matricule</label>
+                </div><br>
+                <div class="form-check text-start">
+                    <input type="checkbox" class="form-check-input" name="check-connect" id="check-connect">
+                    <label class="form-check-label" for="check-connect">Se souvenir de moi</label>
+                </div><br>
+                <div class="container">
+                    <!-- Afficher le message d'erreur s'il existe -->
+                    <div id="info" class="text-start"></div>
+                </div>
+                <div class="">
+                    <button class="btn btn-primary btn-block btn-lg col-12 shadow" id="btn-connect">
+                        <div class="spinner-border text-white" id="spinner" role="status" style="display:none; width:30px; height:30px">
+                            <span class="sr-only">Loader...</span>
+                        </div>
+                        <span id="connexion-text"><i class="fa-solid fa-unlock text-white me-2"></i>Connexion</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container footer d-flex justify-content-center">
+        <div class="text-footer text-white">
+            <p>VENTE PATENTE EXERCICE 2024</p>
+        </div>
+    </div>
+    <!-- Inclure le CDN Bootstrap JS et ses dépendances (Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            $('#connexion-personnel').submit(function(e){
+                e.preventDefault();
+
+                let email = $('#email').val(),
+                    matricule = $('#matricule').val();
+                
+                if (email != "" && matricule != "") {
+                    $('#spinner').show();
+                    $('#connexion-text').hide();
+                    var reg = /(@epmea.cd)$/i,
+                        reg1 = /(@ipmea.cd)$/i
+                    if (reg.test(email) || reg1.test(email)) {
+                        var formData = new FormData(this);
+                        $.ajax({
+                            url : "/connect/login",
+                            method : "POST",
+                            data : formData,
+                            contentType: false,
+                            processData: false,
+                            success : function(response){
+                                $('#spinner').hide();
+                                $('#connexion-text').show();
+                                if (response.message.includes('Reussi')) {
+                                    window.location.href = '/accueil';
+                                }else{
+                                    $('#info').addClass('alert alert-danger text-danger');
+                                    $('#info').html(response.message);
+                                    alert(response.data);
+                                }
+                            }
+                        });
+                    }else{
+                        $('#info').addClass('alert alert-danger text-danger');
+                        $('#info').html("<i class=\"fa-solid fa-circle-exclamation\"></i> E-mail incorrecte!");
+                        $('#spinner').hide();
+                        $('#connexion-text').show();
+                    }
+                }else{
+                    $('#info').addClass('alert alert-danger text-danger');
+                    $('#info').html("<i class=\"fa-solid fa-circle-exclamation\"></i> Renseignez toutes les champs svp!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

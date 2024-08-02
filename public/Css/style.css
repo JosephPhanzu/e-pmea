@@ -1,0 +1,91 @@
+*{
+    padding: 0; margin: 0;
+}
+#bodyLogin{
+    background-image: linear-gradient(50deg, #200858c9 0%, #0f0f6ed2 35%, #132e88c0 100%);
+}
+
+.logo-block{
+    display: flex;
+    justify-content: left;
+}
+
+#logo2{
+    width: 300px;
+}
+
+#logoH{
+    width: 300px;
+}
+#logo{
+    width: 150px;
+}
+#logoKin{
+    width: 100px;
+}
+#btn-home{
+    border: 7px solid rgb(0, 73, 156);
+    transition: ease-out .3s;
+}
+#btn-home:hover{
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px rgba(211, 210, 210, 0.568), 0 4px 8px rgba(39, 38, 38, 0.06);
+    transition: ease-out .2s;
+    cursor: pointer;
+}
+
+.chapeau-text{
+    font-size: 1.5em;
+}
+
+#add-rece{
+    background-color: #3982a6;
+}
+#add-art{
+    background-color: #264d14;
+}
+#add-com{
+    background-color: #161648;
+}
+#liste-tout{
+    background-color: #dd6e13;
+}
+#add-agent{
+    background-color: #e2240a;
+}
+
+#fiche-liste a i{
+    font-size: 80px;
+}
+#fiche-liste a{
+    transition: .3s ease-in-out;
+}
+#fiche-liste a:hover{
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px rgba(211, 210, 210, 0.568), 0 4px 8px rgba(0,0,0,.06);
+    transition: ease-out .2s;
+}
+
+@media screen and (max-width:680px) {
+    #logoH{
+        width: 200px;
+    }
+    #logo{
+        width: 180px;
+    }
+    #logoKin{
+        width: 120px;
+    }
+    #logo2{
+        width: 200px;
+    }
+    #deconnect{
+        width: 10px;
+    }
+    .chapeau-text{
+        font-size: .72em;
+    }
+    #btn-home:hover{
+        transform: scale(.7);
+    }
+}

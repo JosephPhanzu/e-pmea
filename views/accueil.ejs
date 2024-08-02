@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <!-- Inclure le CDN Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- css personnalisé -->
+    <link rel="stylesheet" href="Css/style.css">
+    <!-- Le favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <style>
+        .sticky-fixed-bottom {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f9fa; /* Couleur de fond pour visibilité */
+        }
+
+        /* Pour les écrans md et plus, le comportement devient sticky en bas */
+        @media (min-width: 768px) {
+        .sticky-fixed-bottom {
+            position: fixed;
+        }
+        }
+    </style>
+</head>
+<body class="" id="bodyLogin">
+    <div class="central-block container-fluid">
+        <div class="row header text-white text-center">
+            <div class="col-12 mt-3">
+                <div class="row d-flex justify-content-center">
+                    <img src="images/kinshasa.jpg" class="img-fluid w-sm-50" id="logoH" alt="logo">
+                </div>
+            </div>
+        </div>
+        <div class="container section text-center">
+            <div class="row d-flex justify-content-center mt-5">
+                <a href="fiche" type="button" class="btn rounded-4 rounded-top-0 col-11 col-md-5 bg-white p-5" id="btn-home"><div class="text-center">
+                    <div class="fw-bolder">
+                        DIVISION URBAINE DE L'ENTREPREUNARIAT PETITES, MOYENNES ENTREPRISES ET ARTISANATS <br><span><< E-PMEA >></span>
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="container footer d-flex justify-content-center mt-5 mb-0 .sticky-fixed-bottom">
+            <div class="text-footer text-white text-center">
+                <p>VENTE PATENTE EXERCICE <br> 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclure le CDN Bootstrap JS et ses dépendances (Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

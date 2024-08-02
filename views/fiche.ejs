@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche</title>
+    <!-- Inclure le CDN Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- css personnalisé -->
+    <link rel="stylesheet" href="Css/style.css">
+    <!-- Le favicon -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+</head>
+<body class="" id="bodyLogin">
+    <%- include('pageajout/header') %>
+    <div class="container-fluid section">
+
+        <div class="row d-flex mt-4 d-flex justify-content-center px-2" id="fiche-liste">
+            <a href="recensement" role="button" class="btn col-md-3 border-white rounded-4 mx-md-4 my-2" id="add-rece"><div class="text-center pb-0 mx-1">
+                <div class="card-text">
+                    <i class="fa-solid fa-layer-group text-white m-2"></i>
+                </div>
+                <span class="fw-bold text-white">
+                    FICHE DE RECENSEMENT EXERCICE 2024
+                </span>
+            </div></a>
+            <a href="fpatente?type=art" role="button" class="btn col-md-3 border-white rounded-4 mx-md-4 my-2" id="add-art"><div class="rounded-top-0 text-center mx-1">
+                <div class="card-text">
+                    <i class="fa-solid fa-layer-group text-white m-2"></i>
+                </div>
+                <span class="fw-bold text-white">
+                    FICHE DE PATENTE ARTISANALE EXERCICE 2024
+                </span>
+            </div></a>
+            <a href="fpatente?type=com" role="button" class="btn col-md-3 border-white rounded-4 mx-md-4 my-2" id="add-com"><div class="rounded-top-0 text-center mx-1">
+                <div class="card-text">
+                    <i class="fa-solid fa-layer-group text-white m-2"></i>
+                </div>
+                <span class="fw-bold text-white">
+                    FICHE DE PATENTE COMMERCIALE EXERCICE 2024
+                </span>
+            </div></a>
+            <a href="list" role="button" class="btn col-md-3 border-white rounded-4 mx-md-4 my-2" id="liste-tout"><div class="rounded-top-0 text-center mx-1">
+                <div class="card-text">
+                    <i class="fa-solid fa-list text-white m-2"></i>
+                </div>
+                <span class="fw-bold text-white">
+                    LISTE D'ENREGISTREMENTS
+                </span>
+            </div></a>
+            <% 
+                let affichageAdd = '';
+                if (fonction_user === 'admin'){
+                    affichageAdd = "d-block";
+                }else{
+                    affichageAdd = "d-none";
+                }
+            %>
+            <a href="ajoutAgent" role="button" class="btn <%= affichageAdd %> col-md-3 border-white rounded-4 mx-md-4 my-2" id="add-agent"><div class="rounded-top-0 text-center mx-1">
+                <div class="card-text">
+                    <i class="fa-sharp fa-solid fa-user-plus text-white m-2"></i>
+                </div>
+                <span class="fw-bold text-white">
+                    AJOUT AGENTS
+                </span>
+            </div></a>
+        </div>
+    </div>
+    <div class="container footer d-flex justify-content-center mt-5 mb-0 .sticky-fixed-bottom">
+        <div class="text-footer text-white text-center">
+            <p>VENTE PATENTE EXERCICE <br> 2024</p>
+        </div>
+    </div>
+
+    <!-- Inclure le CDN Bootstrap JS et ses dépendances (Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
