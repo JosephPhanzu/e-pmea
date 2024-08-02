@@ -38,7 +38,7 @@ const sessionStore = new MySQLStore({}, optionBdd);
 // Configuration de la session avec MySQL
 app.use(session({
   key: 'session_cookie_name',
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SECRET_KEY,
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
