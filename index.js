@@ -40,10 +40,10 @@ app.use(session({
 }));
 
 // Middleware global pour rendre les variables de session accessibles dans les vues
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
-});
+// app.use((req, res, next) => {
+//     res.locals.user = req.session.user;
+//     next();
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
