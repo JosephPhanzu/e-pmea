@@ -5,6 +5,7 @@ const mySql = require("mysql");
 var path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 
 const app = express();
 
@@ -31,19 +32,19 @@ app.use((req, res, next) => {
     next();
 });
 
-// Configurer les sessions
-app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV } // true` pour HTTPS
-}));
+  // Configuration de la session avec Redis
+//Configuration du store de sessions MySQL
+const sessionStore = new MySQLStore({}, connection);
 
-// Middleware global pour rendre les variables de session accessibles dans les vues
-// app.use((req, res, next) => {
-//     res.locals.user = req.session.user;
-//     next();
-// });
+// Configuration de la session avec MySQL
+app.use(session({
+  key: 'session_cookie_name',
+  secret: process.env.SESSION_SECRET,
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Mettre `true` en production avec HTTPS
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -138,6 +139,7 @@ app.use('/list', listPat);
 
 // Définition du routes pour la deconnexion
 const deconnexionPage = require("./routes/deconnexion");
+const { truncate } = require("fs/promises");
 app.use('/deconnect', deconnexionPage);
 
 // Configuration du serveur
