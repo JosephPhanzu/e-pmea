@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 //Configuration du store de sessions MySQL
-const sessionStore = new MySQLStore({}, connection);
+const sessionStore = new MySQLStore({}, optionBdd);
 
 // Configuration de la session avec MySQL
 app.use(session({
