@@ -9,13 +9,13 @@ const MySQLStore = require('express-mysql-session')(session);
 
 const app = express();
 
-const connectBdOp = ({
+const connectBdOp = {
     host : process.env.DB_HOST || 'localhost',
     port : process.env.DB_PORT || 3306,
     database : process.env.DB_NAME || 'e-pmea',
     user : process.env.DB_USER || 'root',
     password : process.env.DB_PASSWORD || ''
-});
+};
 
 // Création d'une connexion MySQL
 const optionBdd = mySql.createConnection(connectBdOp);
