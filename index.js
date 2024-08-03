@@ -5,7 +5,7 @@ const mySql = require("mysql");
 var path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const MySQLStore = require('express-mysql-session')(session);
+const FileStore = require('session-file-store')(session);
 
 const app = express();
 
@@ -32,31 +32,46 @@ app.use((req, res, next) => {
     next();
 });
 
-const connectBdOpS = {
-    host : process.env.DB_HOST,
-    database : process.env.DB_NAME,
-    user : process.env.DB_USER,
-    password : process.env.DB_PASSWORD
-};
-
-// Configuration du store de sessions MySQL
-const sessionStore = new MySQLStore(connectBdOpS);
-console.log(sessionStore);
-// Configuration de la session avec MySQL
+// Configuration de la session
 app.use(session({
-  key: 'session_cookie_name',
-  secret: process.env.SECRET_KEY,
-  store: sessionStore,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true }
+    store: new FileStore({
+        path: './sessions', // chemin où les fichiers de session seront stockés
+        ttl: 3600, // durée de vie de la session en secondes (1 heure)
+        retries: 0 // nombre de tentatives de lecture d'une session avant d'abandonner
+    }),
+    secret: 'votre_secret_de_session', // remplacez par votre propre clé secrète
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 3600000 // durée de vie du cookie en millisecondes (1 heure)
+    }
 }));
 
+// const connectBdOpS = {
+//     host : process.env.DB_HOST,
+//     database : process.env.DB_NAME,
+//     user : process.env.DB_USER,
+//     password : process.env.DB_PASSWORD
+// };
+
+// Configuration du store de sessions MySQL
+// const sessionStore = new MySQLStore(connectBdOpS);
+// console.log(sessionStore);
+// // Configuration de la session avec MySQL
+// app.use(session({
+//   key: 'session_cookie_name',
+//   secret: process.env.SECRET_KEY,
+//   store: sessionStore,
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: true }
+// }));
+
 // Middleware global pour rendre les variables de session accessibles dans les vues
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
-});
+// app.use((req, res, next) => {
+//     res.locals.user = req.session.user;
+//     next();
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
