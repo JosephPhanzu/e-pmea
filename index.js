@@ -41,7 +41,7 @@ const connectBdOpS = {
 
 // Configuration du store de sessions MySQL
 const sessionStore = new MySQLStore(connectBdOpS);
-
+console.log(sessionStore);
 // Configuration de la session avec MySQL
 app.use(session({
   key: 'session_cookie_name',
@@ -51,6 +51,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: true }
 }));
+
+function isLoggedIn(req, res, next) {
+  if (req.session.user) {
+    next();
+      
+  } else {
+    res.redirect('/login');
+  }
+}
 
 // Middleware global pour rendre les variables de session accessibles dans les vues
 app.use((req, res, next) => {
@@ -74,7 +83,7 @@ app.get('/', (req, res) => {
 });
 
 // Route pour afficher la page d'accueil après la connexion réussie
-app.get('/accueil', (req, res) => {
+app.get('/accueil', isLoggedIn, (req, res) => {
     if (req.session.user) {
         res.render('accueil');
     } else {
