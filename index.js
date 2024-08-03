@@ -52,15 +52,6 @@ app.use(session({
   cookie: { secure: true }
 }));
 
-function isLoggedIn(req, res, next) {
-  if (req.session.user) {
-    next();
-      
-  } else {
-    res.redirect('login');
-  }
-}
-
 // Middleware global pour rendre les variables de session accessibles dans les vues
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
@@ -83,7 +74,7 @@ app.get('/', (req, res) => {
 });
 
 // Route pour afficher la page d'accueil après la connexion réussie
-app.get('/accueil', isLoggedIn, (req, res) => {
+app.get('/accueil', (req, res) => {
     if (req.session.user) {
         res.render('accueil');
     } else {
