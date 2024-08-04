@@ -1,22 +1,42 @@
 const express = require("express");
 const multer = require('multer');
 const path = require('path');
+const multerS3 = require('multer-s3');
 // const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-// Configuration de multer pour le stockage des fichiers
-const temps = Date.now();
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/fichierUploade/fpatente/'); // Répertoire de destination
-    },
-    filename: (req, file, cb) => {
-        cb(null, 'GST_' + temps + path.extname(file.originalname)); // Nom du fichier
-    }
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
 });
 
-const upload = multer({ storage : storage });
+// Configuration de multer pour le stockage des fichiers
+const temps = Date.now();
+
+const s3 = new AWS.S3();
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_BUCKET_NAME,
+    acl: 'public-read',
+    key: function (req, file, cb) {
+      cb(null, 'GST_' + temps + path.extname(file.originalname));
+    },
+  }),
+});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/fichierUploade/fpatente/'); // Répertoire de destination
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, 'GST_' + temps + path.extname(file.originalname)); // Nom du fichier
+//     }
+// });
+
+// const upload = multer({ storage : storage });
 
 router.post('/ajoutpatent', upload.single('file'), (req, res) => {
     const file = req.file;
